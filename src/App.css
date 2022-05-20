@@ -36,3 +36,15 @@
     transform: rotate(360deg);
   }
 }
+
+.star-active {
+  color: gold;
+}
+
+.custom-star-design:hover {
+  color: gold;
+}
+
+.button_left {
+  margin-left: 10px;
+}
