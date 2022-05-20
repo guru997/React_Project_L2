@@ -50,7 +50,7 @@ export const fetchData = (page) => {
       .get(
         ` https://reqres.in/api/users?page=${
           page ? page : 1
-        }&per_page=${5}&delay=1`
+        }&per_page=${6}&delay=1`
       )
       .then((response) => {
         return response.data;

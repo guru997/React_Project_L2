@@ -10,7 +10,7 @@ import {
 
 const INITIAL_STATE = {
   userdata: "",
-  usersList: [],
+  userList: [],
   favoriteUsers: [],
   favoriteId: [],
   searchedFavorites: [],
@@ -40,9 +40,10 @@ export default (state = INITIAL_STATE, action) => {
         favoriteId: action.data,
       };
     case SEARCH_DATA_USER:
+    
       return {
         ...state,
-        usersList: action.data,
+        userList: action.data,
       };
     case SEARCHED_FAVORITE_USER:
       return {

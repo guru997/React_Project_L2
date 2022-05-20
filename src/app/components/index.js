@@ -19,7 +19,6 @@ function AppComponent() {
   const dispatch = useDispatch();
 
   var _addFavors = (data) => {
-    console.log("data:", data);
     let list = [...reduxData.favoriteUsers];
     list.push(data);
     let favoriteList = [...reduxData.favoriteId];
@@ -28,7 +27,6 @@ function AppComponent() {
     dispatch(addfavoriteUser(list));
     dispatch(favoriteById(favoriteList));
   };
-  console.log(reduxData.favoriteId, "favorite Id");
 
   var _removeFavor = (id) => {
     let list = [...reduxData.favoriteUsers];
@@ -48,7 +46,8 @@ function AppComponent() {
     if (search === "") {
       dispatch(fetchData());
     } else {
-      let list = [...reduxData.usersList];
+      let list = [...reduxData.userList];
+
       let updatedArray = [];
       updatedArray = list.filter((user) => {
         const fullName = user.first_name
@@ -57,7 +56,7 @@ function AppComponent() {
 
         return fullName.search(search.toLowerCase()) !== -1;
       });
-      console.log(updatedArray);
+
       dispatch(searchDataUser(updatedArray));
     }
   };
@@ -72,8 +71,10 @@ function AppComponent() {
     <>
       <div className="container">
         {reduxData.loader ? (
-          <div className="spinner-border" role="status">
-            <span className="sr-only">Loading...</span>
+          <div className="d-flex justify-content-center align-items-center">
+            <div className="spinner-border" role="status">
+              <span className="sr-only">Loading...</span>
+            </div>
           </div>
         ) : (
           <>
@@ -118,15 +119,6 @@ function AppComponent() {
                       <td>{user.last_name}</td>
                       <td>{user.email}</td>
                       <td>
-                        {/* <i
-                      className={`fa fa-star custom-star-design  ${
-                        reduxData.favoriteId.includes(user.id) && "star-active"
-                      }`}
-                      style={{ cursor: "pointer" }}
-                      onClick={`${reduxData.favoriteId.includes(
-                        user.id ? _addFavors(user) : _removeFavor(index)
-                      )} `}
-                    /> */}
                         {reduxData.favoriteId.includes(user.id) ? (
                           <i
                             className="fa fa-star star-active custom-star-design"
@@ -145,22 +137,23 @@ function AppComponent() {
                   ))}
               </tbody>
             </table>
+            {reduxData.userdata?.total_pages !== 1 &&
+              [...Array(reduxData.userdata?.total_pages)].map((x, index) => {
+                index = index + 1;
+                return (
+                  <button
+                    className={`btn btn-primary ${
+                      index === 1 ? "" : "button_left"
+                    }`}
+                    onClick={() => _pagination(index)}
+                    key={index}
+                  >
+                    {index}
+                  </button>
+                );
+              })}
           </>
         )}
-        {reduxData.userdata?.total_pages !== 1 &&
-          [...Array(reduxData.userdata?.total_pages)].map((x, index) => {
-            index = index + 1;
-            return (
-              <button
-                className={`btn btn-primary ${
-                  index === 1 ? "" : "button_left"
-                }`}
-                onClick={() => _pagination(index)}
-              >
-                {index}
-              </button>
-            );
-          })}
       </div>
     </>
   );

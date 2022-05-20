@@ -17,7 +17,7 @@ function Favorites() {
 
       return fullName.search(searchFavorite.toLowerCase()) !== -1;
     });
-    console.log(updatedArray);
+
     dispatch(searchFavoritesUser(updatedArray));
   };
 
@@ -35,7 +35,6 @@ function Favorites() {
     dispatch(favoriteById(favoriteList));
   };
 
-  console.log(reduxData);
   return (
     <>
       <div className="d-flex flex-column justify-content-center align-items-center mt-2">
